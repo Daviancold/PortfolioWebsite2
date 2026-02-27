@@ -14,7 +14,7 @@ import {
 import { home } from "./index";
 
 // IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL: string = "https://demo.magic-portfolio.com";
+const baseURL: string = "https://daviankho.com";
 
 const routes: RoutesConfig = {
   "/": true,
@@ -33,7 +33,7 @@ const display: DisplayConfig = {
 // Enable password protection on selected routes
 // Set password in the .env file, refer to .env.example
 const protectedRoutes: ProtectedRoutesConfig = {
-  "/work/automate-design-handovers-with-a-figma-to-code-pipeline": true,
+  // "/work/automate-design-handovers-with-a-figma-to-code-pipeline": true,
 };
 
 // Import and set font for each variant
@@ -190,7 +190,7 @@ const schema: SchemaConfig = {
   type: "Organization",
   name: "Once UI",
   description: home.description,
-  email: "lorant@once-ui.com",
+  email: "daviankho1@gmail.com",
 };
 
 // social links
@@ -210,7 +210,7 @@ const socialSharing: SocialSharingConfig = {
     pinterest: false,
     whatsapp: false,
     reddit: false,
-    telegram: false,
+    telegram: true,
     email: true,
     copyLink: true,
   },

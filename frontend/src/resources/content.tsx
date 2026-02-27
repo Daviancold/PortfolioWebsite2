@@ -1,19 +1,19 @@
 import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
-import { Line, Row, Text } from "@once-ui-system/core";
+import { Column, Line, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
-  firstName: "Selene",
-  lastName: "Yu",
-  name: `Selene Yu`,
-  role: "Design Engineer",
+  firstName: "Davian",
+  lastName: "Kho",
+  name: `Davian Kho`,
+  role: "Computer Engineer",
   avatar: "/images/avatar.jpg",
-  email: "example@gmail.com",
-  location: "Asia/Jakarta", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
-  languages: ["English", "Bahasa"], // optional: Leave the array empty if you don't want to display languages
+  email: "daviankho1@gmail.com",
+  location: "Asia/Singapore", // Expecting the IANA time zone identifier, e.g., 'Europe/Vienna'
+  languages: ["English", "Mandarin"], // optional: Leave the array empty if you don't want to display languages
 };
 
 const newsletter: Newsletter = {
-  display: true,
+  display: false,
   title: <>Subscribe to {person.firstName}'s Newsletter</>,
   description: <>My weekly newsletter about creativity and engineering</>,
 };
@@ -25,25 +25,25 @@ const social: Social = [
   {
     name: "GitHub",
     icon: "github",
-    link: "https://github.com/once-ui-system",
+    link: "https://github.com/daviancold",
     essential: true,
   },
   {
     name: "LinkedIn",
     icon: "linkedin",
-    link: "https://www.linkedin.com/company/once-ui/",
+    link: "https://www.linkedin.com/in/davian-kho",
     essential: true,
   },
   {
     name: "Instagram",
     icon: "instagram",
-    link: "https://www.instagram.com/once_ui/",
+    link: "https://www.instagram.com/daviancold",
     essential: false,
   },
   {
     name: "Threads",
     icon: "threads",
-    link: "https://www.threads.com/@once_ui",
+    link: "https://www.threads.com/@daviancold",
     essential: true,
   },
   {
@@ -60,9 +60,9 @@ const home: Home = {
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
-  headline: <>Building bridges between design and code</>,
+  headline: <>Building my path from code to scalable systems</>,
   featured: {
-    display: true,
+    display: false,
     title: (
       <Row gap="12" vertical="center">
         <strong className="ml-4">Once UI</strong>{" "}
@@ -76,8 +76,8 @@ const home: Home = {
   },
   subline: (
     <>
-    I'm Selene, a design engineer at <Text as="span" size="xl" weight="strong">ONCE UI</Text>, where I craft intuitive <br /> user experiences. After hours, I build my own projects.
-</>
+      I'm Davian, a computer engineer graduate at <Text as="span" size="xl" weight="strong">ONCE UI</Text>, where I craft intuitive user experiences. After hours, I build my own projects.
+    </>
   ),
 };
 
@@ -102,9 +102,10 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        Selene is a Jakarta-based design engineer with a passion for transforming complex challenges
-        into simple, elegant design solutions. Her work spans digital interfaces, interactive
-        experiences, and the convergence of design and technology.
+        I’m currently a computer engineer based in Singapore. I am passionate about building scalable
+        and reliable software systems, as well as transforming complex technical challenges into elegant, maintainable solutions.
+        My interests span backend development, cloud infrastructure, along with the convergence of software engineering and system design.
+        I’m constantly playing around with new technologies and approaches to make software more efficient, resilient, and impactful.
       </>
     ),
   },
@@ -113,17 +114,17 @@ const about: About = {
     title: "Work Experience",
     experiences: [
       {
-        company: "FLY",
-        timeframe: "2022 - Present",
-        role: "Senior Design Engineer",
+        company: "Aquariux Fintech",
+        timeframe: "Jan 2026 - Present",
+        role: "Backend Software Engineer Intern",
         achievements: [
           <>
-            Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
-            engagement and 30% faster load times.
+            Implemented comprehensive unit testing using JUnit and Mockito for Springboot Service Layer,
+            achieving 100% code coverage and improving reliability of core business logic.
           </>,
           <>
-            Spearheaded the integration of AI tools into design workflows, enabling designers to
-            iterate 50% faster.
+            Created a PostgreSQL data processing pipeline to transform and sort existing application logs
+            into a new schema to support new business logic with scheduled cron job updates
           </>,
         ],
         images: [
@@ -137,21 +138,73 @@ const about: About = {
         ],
       },
       {
-        company: "Creativ3",
-        timeframe: "2018 - 2022",
-        role: "Lead Designer",
+        company: "SPH Media",
+        timeframe: "Jun 2025 - Sep 2025",
+        role: "Software Engineer Intern",
         achievements: [
           <>
-            Developed a design system that unified the brand across multiple platforms, improving
-            design consistency by 40%.
+            Developed a new CI/CD pipeline on Github Actions that pulls upstream repositories and run
+            test builds, ensuring base dependency changes do not lead to critical issues.
           </>,
           <>
-            Led a cross-functional team to launch a new product line, contributing to a 15% increase
-            in overall company revenue.
+            Enhanced the Backstage dashboard UI for OpenSearch logs, adding filtering and clearer
+            alert-level distinctions to improve process monitoring.
           </>,
         ],
         images: [],
       },
+      {
+        company: "Hitachi Rail GTS",
+        timeframe: "May 2024 - Dec 2024",
+        role: "Software Engineer Intern",
+        achievements: [
+          <>
+            Built a proof-of-concept microservices architecture that improved real-time video analytics
+            and alert delivery, increasing frame rates and enabling filtering and sorting of alerts.
+          </>,
+          <>
+            Experimented with Docker image layers to enable deployment into older edge devices and
+            add compatibility with older dependencies.
+          </>,
+          <>
+            Worked with configuration and set-up of a custom lightweight UNIX system to serve as
+            MQTT Broker for local development usage.
+          </>,
+        ],
+        images: [
+          {
+            src: "/images/about/about-01.jpg",
+            alt: "Hitachi Rail GTS Group Photo",
+            width: 16,
+            height: 9,
+          },
+        ],
+      },
+      // Sample format below
+      // {
+      //   company: "FLY",
+      //   timeframe: "2022 - Present",
+      //   role: "Senior Design Engineer",
+      //   achievements: [
+      //     <>
+      //       Redesigned the UI/UX for the FLY platform, resulting in a 20% increase in user
+      //       engagement and 30% faster load times.
+      //     </>,
+      //     <>
+      //       Spearheaded the integration of AI tools into design workflows, enabling designers to
+      //       iterate 50% faster.
+      //     </>,
+      //   ],
+      //   images: [
+      //     // optional: leave the array empty if you don't want to display images
+      //     {
+      //       src: "/images/projects/project-01/cover-01.jpg",
+      //       alt: "Once UI Project",
+      //       width: 16,
+      //       height: 9,
+      //     },
+      //   ],
+      // },
     ],
   },
   studies: {
@@ -159,12 +212,35 @@ const about: About = {
     title: "Studies",
     institutions: [
       {
-        name: "University of Jakarta",
-        description: <>Studied software engineering.</>,
+        name: "National University of Singapore",
+        description: <>
+          <strong>Degree & Focus</strong>
+          <Column as="ul" gap="16">
+            <Text as="li" variant="body-default-m">
+              Bachelor of Engineering (Honours), Computer Engineering
+            </Text>
+            <Text as="li" variant="body-default-m">
+              Relevant Coursework: Data Structures, Real-Time Operating Systems, Software Engineering Principles, Information Security
+            </Text>
+          </Column>
+          <strong>Projects / Achievements</strong>
+          <Column as="ul" gap="16">
+            <Text as="li" variant="body-default-m">
+              Top Students for Computer Engineering Capstone Project
+            </Text>
+          </Column>
+        </>,
       },
       {
-        name: "Build the Future",
-        description: <>Studied online marketing and personal branding.</>,
+        name: "University of Gothenburg",
+        description: <>
+          <strong>Student Exchange Program</strong>
+          <Column as="ul" gap="16">
+            <Text as="li" variant="body-default-m">
+              Relevant Coursework: Databases, Computer Networks, Parallel Programming
+            </Text>
+          </Column>
+        </>,
       },
     ],
   },
@@ -173,60 +249,101 @@ const about: About = {
     title: "Technical skills",
     skills: [
       {
-        title: "Figma",
+        title: "Backend",
         description: (
-          <>Able to prototype in Figma with Once UI with unnatural speed.</>
+          <>Able to bootstrap event-driven services with databases, backend frameworks and runtimes</>
         ),
         tags: [
           {
-            name: "Figma",
-            icon: "figma",
+            name: "PostgreSQL",
+            icon: "postgresql",
+          },
+          {
+            name: "MongoDB",
+            icon: "mongodb",
+          },
+          {
+            name: "SpringBoot",
+            icon: "springboot",
+          },
+          {
+            name: "ExpressJS",
+            icon: "expressjs",
+          },
+          {
+            name: "NodeJS",
+            icon: "nodejs",
+          },
+          {
+            name: "RabbitMQ",
+            icon: "rabbitmq",
+          },
+          {
+            name: "MQTT",
+            icon: "mqtt",
+          }
+        ],
+        // optional: leave the array empty if you don't want to display images
+        images: [],
+      },
+      {
+        title: "Infrastructure",
+        description: (
+          <>Dabbling and playing around with cloud infrastructure in my free time</>
+        ),
+        tags: [
+          {
+            name: "AWS",
+            icon: "aws",
+          },
+          {
+            name: "Oracle Cloud",
+            icon: "oracle",
+          },
+          {
+            name: "Kubernetes",
+            icon: "kubernetes",
+          },
+          {
+            name: "Prometheus",
+            icon: "prometheus",
+          },
+          {
+            name: "Grafana",
+            icon: "grafana",
+          },
+          {
+            name: "Terraform",
+            icon: "terraform",
           },
         ],
         // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-02.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-          {
-            src: "/images/projects/project-01/cover-03.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        // images: [
+        //   {
+        //     src: "/images/projects/project-01/cover-04.jpg",
+        //     alt: "Project image",
+        //     width: 16,
+        //     height: 9,
+        //   },
+        // ],
       },
       {
-        title: "Next.js",
+        title: "Frontend",
         description: (
-          <>Building next gen apps with Next.js + Once UI + Supabase.</>
+          <>Occasional simple webpage and dashboard implementations</>
         ),
         tags: [
           {
-            name: "JavaScript",
-            icon: "javascript",
+            name: "ReactJS",
+            icon: "reactjs",
           },
           {
             name: "Next.js",
             icon: "nextjs",
           },
-          {
-            name: "Supabase",
-            icon: "supabase",
-          },
         ],
         // optional: leave the array empty if you don't want to display images
-        images: [
-          {
-            src: "/images/projects/project-01/cover-04.jpg",
-            alt: "Project image",
-            width: 16,
-            height: 9,
-          },
-        ],
+        images: [],
       },
     ],
   },
@@ -253,7 +370,7 @@ const work: Work = {
 const gallery: Gallery = {
   path: "/gallery",
   label: "Gallery",
-  title: `Photo gallery – ${person.name}`,
+  title: `Photography Collection`,
   description: `A photo collection by ${person.name}`,
   // Images by https://lorant.one
   // These are placeholder images, replace with your own
