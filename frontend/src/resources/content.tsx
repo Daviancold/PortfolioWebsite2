@@ -1,4 +1,13 @@
-import { About, Blog, Gallery, Home, Newsletter, Person, Social, Work } from "@/types";
+import {
+  About,
+  Blog,
+  Gallery,
+  Home,
+  Newsletter,
+  Person,
+  Social,
+  Work,
+} from "@/types";
 import { Column, Line, Row, Text } from "@once-ui-system/core";
 
 const person: Person = {
@@ -38,13 +47,13 @@ const social: Social = [
     name: "Instagram",
     icon: "instagram",
     link: "https://www.instagram.com/daviancold",
-    essential: false,
+    essential: true,
   },
   {
     name: "Threads",
     icon: "threads",
     link: "https://www.threads.com/@daviancold",
-    essential: true,
+    essential: false,
   },
   {
     name: "Email",
@@ -76,7 +85,12 @@ const home: Home = {
   },
   subline: (
     <>
-      I'm Davian, a computer engineer graduate at <Text as="span" size="xl" weight="strong">ONCE UI</Text>, where I craft intuitive user experiences. After hours, I build my own projects.
+      I'm Davian, a computer engineer graduate at{" "}
+      <Text as="span" size="xl" weight="strong">
+        ONCE UI
+      </Text>
+      , where I craft intuitive user experiences. After hours, I build my own
+      projects.
     </>
   ),
 };
@@ -102,10 +116,13 @@ const about: About = {
     title: "Introduction",
     description: (
       <>
-        I’m currently a computer engineer based in Singapore. I am passionate about building scalable
-        and reliable software systems, as well as transforming complex technical challenges into elegant, maintainable solutions.
-        My interests span backend development, cloud infrastructure, along with the convergence of software engineering and system design.
-        I’m constantly playing around with new technologies and approaches to make software more efficient, resilient, and impactful.
+        I’m currently a computer engineer based in Singapore. I am passionate
+        about building scalable and reliable software systems, as well as
+        transforming complex technical challenges into elegant, maintainable
+        solutions. My interests span backend development, cloud infrastructure,
+        along with the convergence of software engineering and system design.
+        I’m constantly playing around with new technologies and approaches to
+        make software more efficient, resilient, and impactful.
       </>
     ),
   },
@@ -119,22 +136,18 @@ const about: About = {
         role: "Backend Software Engineer Intern",
         achievements: [
           <>
-            Implemented comprehensive unit testing using JUnit and Mockito for Springboot Service Layer,
-            achieving 100% code coverage and improving reliability of core business logic.
+            Implemented comprehensive unit testing using JUnit and Mockito for
+            Springboot Service Layer, achieving 100% code coverage and improving
+            reliability of core business logic.
           </>,
           <>
-            Created a PostgreSQL data processing pipeline to transform and sort existing application logs
-            into a new schema to support new business logic with scheduled cron job updates
+            Created a PostgreSQL data processing pipeline to transform and sort
+            existing application logs into a new schema to support new business
+            logic with scheduled cron job updates
           </>,
         ],
         images: [
           // optional: leave the array empty if you don't want to display images
-          {
-            src: "/images/projects/project-01/cover-01.jpg",
-            alt: "Once UI Project",
-            width: 16,
-            height: 9,
-          },
         ],
       },
       {
@@ -143,15 +156,24 @@ const about: About = {
         role: "Software Engineer Intern",
         achievements: [
           <>
-            Developed a new CI/CD pipeline on Github Actions that pulls upstream repositories and run
-            test builds, ensuring base dependency changes do not lead to critical issues.
+            Developed a new CI/CD pipeline on Github Actions that pulls upstream
+            repositories and run test builds, ensuring base dependency changes
+            do not lead to critical issues.
           </>,
           <>
-            Enhanced the Backstage dashboard UI for OpenSearch logs, adding filtering and clearer
-            alert-level distinctions to improve process monitoring.
+            Enhanced the Backstage dashboard UI for OpenSearch logs, adding
+            filtering and clearer alert-level distinctions to improve process
+            monitoring.
           </>,
         ],
-        images: [],
+        images: [
+          {
+            src: "/images/about/about-02.jpg",
+            alt: "SPH Media Group Photo",
+            width: 16,
+            height: 9,
+          },
+        ],
       },
       {
         company: "Hitachi Rail GTS",
@@ -159,16 +181,17 @@ const about: About = {
         role: "Software Engineer Intern",
         achievements: [
           <>
-            Built a proof-of-concept microservices architecture that improved real-time video analytics
-            and alert delivery, increasing frame rates and enabling filtering and sorting of alerts.
+            Built a proof-of-concept microservices architecture that improved
+            real-time video analytics and alert delivery, increasing frame rates
+            and enabling filtering and sorting of alerts.
           </>,
           <>
-            Experimented with Docker image layers to enable deployment into older edge devices and
-            add compatibility with older dependencies.
+            Experimented with Docker image layers to enable deployment into
+            older edge devices and add compatibility with older dependencies.
           </>,
           <>
-            Worked with configuration and set-up of a custom lightweight UNIX system to serve as
-            MQTT Broker for local development usage.
+            Worked with configuration and set-up of a custom lightweight UNIX
+            system to serve as MQTT Broker for local development usage.
           </>,
         ],
         images: [
@@ -213,34 +236,55 @@ const about: About = {
     institutions: [
       {
         name: "National University of Singapore",
-        description: <>
-          <strong>Degree & Focus</strong>
-          <Column as="ul" gap="16">
-            <Text as="li" variant="body-default-m">
-              Bachelor of Engineering (Honours), Computer Engineering
-            </Text>
-            <Text as="li" variant="body-default-m">
-              Relevant Coursework: Data Structures, Real-Time Operating Systems, Software Engineering Principles, Information Security
-            </Text>
-          </Column>
-          <strong>Projects / Achievements</strong>
-          <Column as="ul" gap="16">
-            <Text as="li" variant="body-default-m">
-              Top Students for Computer Engineering Capstone Project
-            </Text>
-          </Column>
-        </>,
+        description: (
+          <>
+            <strong>Degree & Focus</strong>
+            <Column as="ul" gap="16">
+              <Text as="li" variant="body-default-m">
+                Bachelor of Engineering (Honours), Computer Engineering
+              </Text>
+              <Text as="li" variant="body-default-m">
+                Relevant Coursework: Data Structures, Real-Time Operating
+                Systems, Software Engineering Principles, Information Security
+              </Text>
+            </Column>
+            <strong>Roles</strong>
+            <Column as="ul" gap="16">
+              <Text as="li" variant="body-default-m">
+                Teaching assistant for CS2113: Software Engineering & Object-Oriented Programming
+              </Text>
+              <Text as="li" variant="body-default-m">
+                Student Advisor for CP2106: Independent Software Development Project (Orbital)
+              </Text>
+              <Text as="li" variant="body-default-m">
+                NUS Muay Thai Fight Team Member & Former Vice-President
+              </Text>
+              <Text as="li" variant="body-default-m">
+                Project Oceanus (Overseas Community Involvement Project) Member
+              </Text>
+            </Column>
+            <strong>Achievements</strong>
+            <Column as="ul" gap="16">
+              <Text as="li" variant="body-default-m">
+                Top Students for Computer Engineering Capstone Project
+              </Text>
+            </Column>
+          </>
+        ),
       },
       {
         name: "University of Gothenburg",
-        description: <>
-          <strong>Student Exchange Program</strong>
-          <Column as="ul" gap="16">
-            <Text as="li" variant="body-default-m">
-              Relevant Coursework: Databases, Computer Networks, Parallel Programming
-            </Text>
-          </Column>
-        </>,
+        description: (
+          <>
+            <strong>Student Exchange Program</strong>
+            <Column as="ul" gap="16">
+              <Text as="li" variant="body-default-m">
+                Relevant Coursework: Databases, Computer Networks, Parallel
+                Programming
+              </Text>
+            </Column>
+          </>
+        ),
       },
     ],
   },
@@ -251,7 +295,10 @@ const about: About = {
       {
         title: "Backend",
         description: (
-          <>Able to bootstrap event-driven services with databases, backend frameworks and runtimes</>
+          <>
+            Able to bootstrap event-driven services with databases, backend
+            frameworks and runtimes
+          </>
         ),
         tags: [
           {
@@ -281,7 +328,7 @@ const about: About = {
           {
             name: "MQTT",
             icon: "mqtt",
-          }
+          },
         ],
         // optional: leave the array empty if you don't want to display images
         images: [],
@@ -289,7 +336,10 @@ const about: About = {
       {
         title: "Infrastructure",
         description: (
-          <>Dabbling and playing around with cloud infrastructure in my free time</>
+          <>
+            Dabbling and playing around with cloud infrastructure in my free
+            time
+          </>
         ),
         tags: [
           {
@@ -340,6 +390,10 @@ const about: About = {
           {
             name: "Next.js",
             icon: "nextjs",
+          },
+          {
+            name: "TailwindCSS",
+            icon: "tailwindcss",
           },
         ],
         // optional: leave the array empty if you don't want to display images

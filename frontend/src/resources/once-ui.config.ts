@@ -14,13 +14,13 @@ import {
 import { home } from "./index";
 
 // IMPORTANT: Replace with your own domain address - it's used for SEO in meta tags and schema
-const baseURL: string = "https://daviankho.com";
+const baseURL: string = "https://www.daviankho.com";
 
 const routes: RoutesConfig = {
   "/": true,
   "/about": true,
   "/work": true,
-  "/blog": true,
+  "/blog": false,
   "/gallery": true,
 };
 
@@ -187,8 +187,8 @@ const mailchimp: MailchimpConfig = {
 // default schema data
 const schema: SchemaConfig = {
   logo: "",
-  type: "Organization",
-  name: "Once UI",
+  type: "Personal Website",
+  name: "Davian Kho",
   description: home.description,
   email: "daviankho1@gmail.com",
 };

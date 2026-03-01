@@ -1,0 +1,68 @@
+---
+title: "PeerPrep"
+publishedAt: "2024-12-01"
+summary: "A single page application powered by microservices, it is a collaborative coding platform for users to practice leetcoding."
+images:
+  - "/images/projects/peerprep/peerprep-01.jpg"
+  - "/images/projects/peerprep/peerprep-02.jpg"
+  - "/images/projects/peerprep/peerprep-03.jpg"
+  - "/images/projects/peerprep/peerprep-04.jpg"
+team:
+  - name: "Davian Kho"
+    role: "Software Engineer"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/davian-kho/"
+  - name: "Glemen Neo"
+    role: "Software Engineer"
+    avatar: "https://media.licdn.com/dms/image/v2/D5603AQE69YQBhEg_nQ/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1674121107195?e=1773878400&v=beta&t=DInw1QF9KWAooCSbBjJWHFpLxzS_9R5hzSa-xMo8YxU"
+    linkedIn: "https://www.linkedin.com/in/glemen-neo-b9a481142/"
+  - name: "Chin Yun Ru"
+    role: "Software Engineer"
+    avatar: "https://media.licdn.com/dms/image/v2/D5603AQFybEEDLzYgpw/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1682426326933?e=1773878400&v=beta&t=gIblWdS7PEUjjpzWTQTDKuuFP9vS2ctc8Xk1-a4INaQ"
+    linkedIn: "https://www.linkedin.com/in/yunruu/"
+  - name: "Shishir Bychapur"
+    role: "Software Engineer"
+    avatar: "https://media.licdn.com/dms/image/v2/D5603AQEyIajvJzgPmg/profile-displayphoto-scale_400_400/B56ZxfmP3.J0Ak-/0/1771130389760?e=1773878400&v=beta&t=P9sB6MRZEgocsjjgIQkyeFo1Uej63lSaTQQq0sXx8TM"
+    linkedIn: "https://www.linkedin.com/in/shishirbychapur/"
+## Link to project, to add once there is time to deploy PeerPrep microservices.
+# link: "https://once-ui.com/" 
+---
+
+## Overview
+
+This project is done under a module in NUS called CS3219 (Software Engineering and Principles). It is a collaborative, microservice-based platform designed to help students and aspiring software engineers prepare for technical intervies. 
+The platform allows users to simulate real-world coding interview scenarios by matching them with peers to solve technical problems in a shared, real-time environment. The project allows us to explore the use of event-driven communications, 
+as well as learn to implement software using a microservices architecture.
+
+## Key Features
+
+- **User Matchmaking**: Pairs users based on selected criteria such as question difficulty (easy, medium, hard), topic of interest, and proficiency level.
+- **Live Collaborative Code Editing**: Provides a shared coding environment where matched peers can work together on solutions with real-time synchronization of code, cursor positions, and highlights.
+- **Real-time Chat**: Features a text-based chat service within the collaboration space to facilitate direct communication between participants.
+- **Code Execution**: Integrated with JudgeZero to allow users to execute their code in a secure, sandboxed environment and view results instantly.
+- **Session Management**: Allows users to terminate sessions smoothly or view past attempts in a dedicated "view-only" mode that preserves the integrity of previous work.
+
+## Technologies Used
+
+- **Next.js and TailwindCSS**: For fast, server-rendered React applications with modern, accessible UI.
+- **TypeScript**: For static type checking, improving code clarity and reducing runtime errors.
+- **Node.js and Express.js**: For bootstrapping the various backend microservices.
+- **WebSockets**: For real-time features such as live editing, chatting and cursor synchronisation.
+- **RabbitMQ**: For handling matchmaking logic.
+- **MongoDB and Mongoose**: For storage of all structured data for users, questions and sessions.
+- **Docker and Nginx**: For service containerisation and enabling of reverse proxy for all services.
+
+## Challenges and Learnings
+
+One of the biggest challenges was attempting horizontal scaling for our services. While the modular approach improved separation of concerns, initial planning deficiencies led to tighter coupling between 
+services than intended, hindering independent scalability. Due to tight sprint deadlines, we had to prioritized core functionality over infrastructure optimization. A key takeaway was the need for a 
+more robust architectural design, specifically decoupling the queuing mechanisms from the services and implementing data hashing to allow services to scale independently and handle high-concurrency workloads more effectively.
+
+## Outcome
+
+The project was successfully completed with a working design that fitted the user requirements we initally sought to fulfil, leveraging technologies such as continuous deployment using Github Actions to 
+Netlify and DigitalOcean. The final platform also achieves high performance through server-side rendering and efficient real-time synchronisation, meeting the complex requirements of this project.
+
+---
+
+This project demonstrates your ability to leverage automation and streamline workflows, which is highly relevant for design engineering portfolios focused on efficiency and innovation.

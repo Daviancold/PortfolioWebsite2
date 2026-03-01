@@ -17,6 +17,7 @@ const nextConfig = {
         pathname: "**",
       },
     ],
+    domains: ['media.licdn.com'],
   },
   sassOptions: {
     compiler: "modern",

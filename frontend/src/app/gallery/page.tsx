@@ -28,9 +28,12 @@ export default function Gallery() {
           image: `${baseURL}${person.avatar}`,
         }}
       />
-        <Heading marginBottom="l" variant="heading-strong-xl" align="center">
-          {gallery.title}
-        </Heading>
+      <Heading marginBottom="l" variant="heading-strong-xl" align="center">
+        {gallery.title}
+      </Heading>
+      <Column textVariant="body-default-l" fillWidth gap="m" marginBottom="xl" center>
+        I love taking photos :)
+      </Column>
       <GalleryView />
     </Column>
   );
