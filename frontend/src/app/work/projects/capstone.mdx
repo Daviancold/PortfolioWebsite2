@@ -1,0 +1,76 @@
+---
+title: "AR-Powered Furniture Builder"
+publishedAt: "2025-12-01"
+summary: "My Computer Engineering Capstone Project"
+images:
+  - "/images/projects/capstone/capstone-01.png"
+  - "/images/projects/capstone/capstone-02.png"
+  - "/images/projects/capstone/capstone-03.png"
+team:
+  - name: "Davian Kho"
+    role: "Software Engineer (Communications)"
+    avatar: "/images/avatar.jpg"
+    linkedIn: "https://www.linkedin.com/in/davian-kho/"
+  - name: "Parth Gandi Sanjay"
+    role: "Software Engineer (Visualiser)"
+    avatar: "https://media.licdn.com/dms/image/v2/D5603AQGf1ho1C5sUxA/profile-displayphoto-shrink_400_400/B56ZQnA7xBG8Ag-/0/1735821344287?e=1773878400&v=beta&t=lK1nsjcK8LUBeLZ8Sz8E7wgl77dgV3SIYON4zn1Abz8"
+    linkedIn: "https://www.linkedin.com/in/parth-sanjay-gandhi/"
+  - name: "Low Tjun Lim"
+    role: "Hardware Engineer"
+    avatar: "https://media.licdn.com/dms/image/v2/C5603AQGAIVLAEN9cdQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1638172784828?e=1773878400&v=beta&t=CVJRjdXng8hGej4wQW0IH9N2ykIOvcvUkk4CAiumFXw"
+    linkedIn: "https://www.linkedin.com/in/low-tjun-lym-974443227/"
+  - name: "Ong Wei Xiang"
+    role: "AI Engineer"
+    avatar: "https://media.licdn.com/dms/image/v2/D4D03AQGM2YgMEn_fsw/profile-displayphoto-scale_400_400/B4DZwjxUkNIgAg-/0/1770126659339?e=1773878400&v=beta&t=4KUldg9DxhT0KOqy7TeoraD3iEgilxRbgKoOJyU3Tes"
+    linkedIn: "https://www.linkedin.com/in/weixiangong/"
+
+---
+
+## Overview
+
+This project is done as part of the NUS Computer Engineering Capstone Project(CG4002). We were given 4 components (Communications, Visualiser, AI, Hardware) and we were free to come up with any project as long as these 4 roles 
+were sufficiently utilised. Our project components include a Firebeetle ESP-32 for collecting movement and voice data, an Ultra96 for voice recognition and word inference, Unity for enabling augmented reality and an overall 
+communications architecture that serves to connect everything together. Being the "comms" guy for the team, this page will describe more about the work that I have done.
+
+## Key Features
+
+- **Real-Time Low Latency Data Streaming**: Developed an efficient architecture to ensure the best user experience when using the AR-application.
+- **Encrypted and Secure Connections**: Wrote a custom script to generate and self-sign client and server key certificate pairs, enabling mutual TLS (mTLS)
+- **Cloud-Enabled**: Chose to use Amazon Web Services(AWS) in part for learning. Instead of being self-hosted on a local device (i.e. a computer), a middleware and MQTT broker was hosted on the cloud instead.
+- **Continuous Deployment**: Reduced time taken to push test changes to the cloud, allowing for more development time and easier debugging.
+
+## Technologies Used
+
+- **Golang**: Golang's thread and concurrency model using Goroutines, as well as being more performative than languages like Python, helped with consolidating multiple data channels from multiple connection sources with with ease.
+- **AWS Elastic Compute Cloud (EC2)**: EC2 enabled ease of communications across all edge devices using a public IP address. Singapore-located server (ap-southeast-1) enables low latency connection as well.
+- **AWS Simple Storage Service (S3)**: S3 was used to store images captured on the phone app, itself being easier to access due to the usage of EC2.
+- **WebSockets**: Enables unique bi-directional connection, while allowing multiple devices to be connected.
+- **MQTT**: For streaming data between edge devices (ESP-32 and Ultra 96).
+- **AWS CodePipeline**: For ease of deployment of code changes to the EC2.
+- **Docker**: For standardisation of services both in local and in the cloud.
+- **Firebeetle ESP-32**: For gesture and voice data.
+- **Ultra 96**: For voice recognition and word inference.
+
+## Challenges and Learnings
+
+There were physical hardware limitations with the ESP-32, such as the lack of support for newer Key-Cert standards and maximum file limit for MQTT. With the older TLS library implementation on the ESP32, it was unable to read multiple
+hosts in the SAN field, often rejecting the Key-Cert pair (the desired action was to use the domain name, ip address of the EC2 instance and localhost). I had to maintain 2 sets of certs for the project, using only the ip address in the 
+CN field for the ESP-32, and another pair for the rest of the connections (Ultra 96 and Unity App).
+
+For the Ultra96 to do word inference, it required the voice data from the ESP-32. However, the MQTT client on the ESP-32 had a maximum file limit (64 kB). We tried multiple potential solutions such as sending in binary data instead of 
+serialised JSON format and using custom data types with lesser delimiters to reduce wasted space. The eventual solution was to have the data sent in binary, but the data would be overall split into 3 parts, and inference would be executed on 
+all 3 packets, choosing the result with the highest confidence, which proved to work better than expected as the format caters for words spoken in both the earlier window and the later window of the original speech window.
+
+## Outcome
+
+The project was successfully completed and worked better than expected. Its modular design enabled ease of development across the team as we did not need to meet in order to test out our components. I was also awarded the Top Student For 
+Capstone Project Award, and I am grateful for the co-operative teammates that allowed me to have more bandwidth to push myself into doing something not typically done for the project.
+
+---
+
+## Product Video
+<iframe src="https://youtu.be/DQbwEszOHYQ" width="640" height="480"></iframe>
+
+<a href="https://github.com/CG4002-B13/Capstone" style={{ textDecoration: 'none', color: 'inherit' }}>
+  ## Click To View Project Repo
+</a>

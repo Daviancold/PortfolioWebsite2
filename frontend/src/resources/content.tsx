@@ -85,12 +85,12 @@ const home: Home = {
   },
   subline: (
     <>
-      I'm Davian, a computer engineer graduate at{" "}
+      I'm Davian, a computer engineer drawn to {" "}
       <Text as="span" size="xl" weight="strong">
-        ONCE UI
+        systems that scale. 
       </Text>
-      , where I craft intuitive user experiences. After hours, I build my own
-      projects.
+      <br/> 
+      After hours, I like to explore backend tools and infrastructure through personal projects.
     </>
   ),
 };
@@ -430,42 +430,42 @@ const gallery: Gallery = {
   // These are placeholder images, replace with your own
   images: [
     {
-      src: "/images/gallery/horizontal-1.jpg",
-      alt: "image",
+      src: "/images/gallery/sweden-01-h.jpg",
+      alt: "Kiruna Northern Lights",
       orientation: "horizontal",
     },
     {
-      src: "/images/gallery/vertical-4.jpg",
+      src: "/images/gallery/hungary-01-v.jpg",
       alt: "image",
       orientation: "vertical",
     },
     {
-      src: "/images/gallery/horizontal-3.jpg",
+      src: "/images/gallery/sweden-02-h.jpg",
       alt: "image",
       orientation: "horizontal",
     },
     {
-      src: "/images/gallery/vertical-1.jpg",
+      src: "/images/gallery/belgium-01-v.jpg",
       alt: "image",
       orientation: "vertical",
     },
     {
-      src: "/images/gallery/vertical-2.jpg",
+      src: "/images/gallery/hungary-02-v.jpg",
       alt: "image",
       orientation: "vertical",
     },
     {
-      src: "/images/gallery/horizontal-2.jpg",
+      src: "/images/gallery/denmark-01-h.jpg",
       alt: "image",
       orientation: "horizontal",
     },
     {
-      src: "/images/gallery/horizontal-4.jpg",
+      src: "/images/gallery/frankfurt-01-h.jpg",
       alt: "image",
       orientation: "horizontal",
     },
     {
-      src: "/images/gallery/vertical-3.jpg",
+      src: "/images/gallery/sweden-03-v.jpg",
       alt: "image",
       orientation: "vertical",
     },

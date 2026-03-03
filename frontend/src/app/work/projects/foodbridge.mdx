@@ -19,33 +19,37 @@ team:
 
 ## Overview
 
-Development of a flexible and highly customizable design system using Next.js for front-end and Figma for design collaboration.
+This project was done as part of an NUS summer module (CP2106 Independent Software Development Project) called Orbital, where you and your partner can design a web/mobile application. Since it was our first time doing software engineering, and our only coding knowledge was in C++,
+we opted to use Flutter and Dart for its familiar syntax. The core functionality was to create a CRUD-Based application, with additional nice-to-haves such as serverless functions to push notifications and live chatroom.
 
 ## Key Features
 
-- **Component Library**: Built a set of modular, reusable UI components using React and styled-components in Next.js, focusing on accessibility and responsiveness.
-- **Theming and Customization**: Integrated a theming system that allows easy switching and customization of color palettes, typography, and layout styles using CSS variables and Figma tokens.
-- **Figma Integration**: Collaborated closely with designers by setting up a shared design library in Figma. This library was synchronized with the codebase, ensuring design handoffs were seamless and that design tokens remained consistent across both platforms.
-- **Documentation and Usage Guidelines**: Developed comprehensive documentation with Storybook to showcase components, usage patterns, and best practices, ensuring the design system is easy to adopt by other teams.
+- **Live Notifications**: Powered by Firebase Functions, it enables push-based notifications for all users of the application.
+- **Location and Image Info Tagging**: Using the respective Flutter libraries, it allowed storage of more special information for our listings
+- **Stream-Powered Chatroom**: Firebase SDK provides Streams, which in turn provides live updates to data changes in the database, faciliating chatrooms.
 
 ## Technologies Used
 
-- **Next.js**: For fast, server-rendered React applications.
-- **Figma**: For creating and managing design assets and prototypes.
-- **Styled-Components**: For styling React components with a modular, themable approach.
-- **Storybook**: For building an interactive, documented component library.
+- **Flutter**: For its vast and easy to use pub.dev libraries
+- **Dart**: For its familar syntax to C++/Java and its ability to compile for Android phones
+- **Firebase**: For its simple to use SDK that can be integrated without having to use APIs
+- **Mockito**: For simple unit and integration tests
 
 ## Challenges and Learnings
 
-One key challenge was balancing the need for flexibility with the desire to maintain design consistency. The solution involved creating well-defined design tokens and establishing clear guidelines for when and how components could be customized. Additionally, setting up effective collaboration workflows between designers and developers using Figma and Git was a learning experience that greatly improved the process.
+Since this project was done with no knowledge about good practices, the entire project was written in a monolithic approach. Additionally, there was no proper git management, with branches often having merge-conflicts that often took a long time to resolve. It was also increasingly difficult to implement
+new features towards the end of the project, often running into issues where i had to refactor many code just to add something small. This project was actually what got me thinking "there has to be a better way to code this out with better compartmentalisation", leading to the interest in distributed systems.
+We were also exposed to the world of testing, making use of Mockito, creating stubs and automating tests on top of user testing.
 
 ## Outcome
 
-The design system is now actively used across multiple projects, leading to faster development cycles, fewer design inconsistencies, and improved collaboration between design and development teams. It has become a foundation for scaling our products efficiently while ensuring a cohesive user experience.
+This project was a great learning experience and was lots of fun, kickstarting my interest in software engineering. We also achieved the Apollo-11 level (second highest difficulty).
+
+---
 
 ## Product Video
 <iframe src="https://drive.google.com/file/d/1BJN1oApEMlhWsfqgdotzeYG3Jz0D2ZaX/preview" width="640" height="480"></iframe>
 
 <a href="https://github.com/Daviancold/FoodBridge" style={{ textDecoration: 'none', color: 'inherit' }}>
-  ## View Project Repo Here
+  ## Click To View Project Repo
 </a>
