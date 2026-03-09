@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextjs-dashboard
+  namespace: apps
+  labels:
+    grafana_dashboard: "1" 
+annotations:
+  grafana_dashboard_folder: "/NextJS"
+data:
+  nextjs-main.json: |-
+    {
+      "annotations": { "list": [] },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 0,
+      "id": null,
+      "links": [],
+      "liveNow": false,
+      "panels": [
+        {
+          "title": "HTTP Request Rate",
+          "type": "timeseries",
+          "targets": [
+            {
+              "expr": "rate(http_requests_total{job=\"nextjs\"}[5m])",
+              "refId": "A"
+            }
+          ]
+        }
+      ],
+      "title": "Next.js Application Metrics",
+      "uid": "nextjs-001",
+      "version": 1
+    }
