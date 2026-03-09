@@ -8,14 +8,16 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
-  source:
-    chart: kube-prometheus-stack
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 56.x.x
-    path: .
-    helm:
-      valueFiles:
-        - values/prometheus-values.yaml
+  sources:
+    - repoURL: https://prometheus-community.github.io/helm-charts
+      chart: kube-prometheus-stack
+      targetRevision: 56.x.x
+      helm:
+        valueFiles:
+          - $my-repo/k8s/values/prometheus-values.yaml
+    - repoURL: https://github.com/daviancold/PortfolioWebsite2.git
+      targetRevision: HEAD
+      ref: my-repo
   destination:
     server: "https://kubernetes.default.svc"
     namespace: monitoring
