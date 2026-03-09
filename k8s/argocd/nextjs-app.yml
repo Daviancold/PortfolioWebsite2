@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: 'https://github.com/daviancold/PortfolioWebsite2.git'
-    path: k8s/namespaces
+    path: k8s/apps/nextjs
     targetRevision: HEAD
   destination:
     server: 'https://kubernetes.default.svc'
