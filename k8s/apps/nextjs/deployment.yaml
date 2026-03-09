@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextjs-website-deployment
+  namespace: apps
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nextjs-website
+  # can add strategy here when base kubernetes works
+  template:
+    metadata:
+      name: nextjs-website-pod
+      labels: 
+        app: nextjs-website
+    spec:
+      containers:
+      - name: nextjs-website-container
+        image: daviancold/my-portfolio-website-arm:latest
+        ports:
+        - containerPort: 3000
