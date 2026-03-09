@@ -14,7 +14,7 @@ spec:
       targetRevision: 56.x.x
       helm:
         valueFiles:
-          - $my-repo/k8s/values/prometheus-values.yaml
+          - $my-repo/k8s/values/prometheus-values.yml
     - repoURL: https://github.com/daviancold/PortfolioWebsite2.git
       targetRevision: HEAD
       ref: my-repo
