@@ -1,0 +1,85 @@
+# k8s/values/prometheus-values.yaml
+
+## Grafana Configuration
+grafana:
+  enabled: true
+  sidecar:
+    dashboards:
+      enabled: true
+      # This allows you to drop a ConfigMap into ANY namespace (like 'apps')
+      # and have it automatically appear as a dashboard in Grafana.
+      label: grafana_dashboard
+      labelValue: "1"
+      searchNamespace: ALL
+  
+  # additionalDataSources:
+  #   - name: Loki
+  #     type: loki
+  #     url: http://loki-gateway.monitoring.svc.cluster.local
+  #     access: proxy
+  #     jsonData:
+  #       httpHeaderName1: "X-Scope-OrgID"
+  #     secureJsonData:
+  #       httpHeaderValue1: "fake"
+
+## Prometheus Configuration
+prometheus:
+  prometheusSpec:
+    # ## 1. SRE "Guardrails" - Resource Limits
+    # # Prevents Prometheus from consuming all 24GB of your RAM
+    # resources:
+    #   requests:
+    #     cpu: 250m
+    #     memory: 1Gi
+    #   limits:
+    #     cpu: 500m
+    #     memory: 2Gi
+
+    ## 2. Persistence - OCI Block Storage
+    # Ensures your metrics survive a pod restart or node upgrade
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          # storageClassName: oci-bv # The standard OKE Block Volume class
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 20Gi
+
+    ## 3. Discovery - Cross-Namespace Scraping
+    # Setting these to 'false' tells Prometheus to look for ServiceMonitors 
+    # and PodMonitors in ALL namespaces (like your 'apps' namespace).
+    # Without this, it will only scrape things in 'monitoring'.
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+
+    ## 4. Retention
+    # retention: 10d
+    # retentionSize: "15GB"
+    retention: 2d
+
+## Component Exporters
+nodeExporter:
+  enabled: true
+  # Adds a 'node' label to metrics for easier filtering in Grafana
+  serviceMonitor:
+    relabelings:
+      - action: replace
+        sourceLabels: [__meta_kubernetes_endpoint_node_name]
+        targetLabel: node
+
+kubeStateMetrics:
+  enabled: true
+
+# Alertmanager - Single instance to save resources on OCI
+alertmanager:
+  alertmanagerSpec:
+    replicas: 1
+    storage:
+      volumeClaimTemplate:
+        spec:
+          # storageClassName: oci-bv
+          resources:
+            requests:
+              storage: 2Gi
