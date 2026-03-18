@@ -11,10 +11,12 @@ spec:
   sources:
     - repoURL: https://prometheus-community.github.io/helm-charts
       chart: kube-prometheus-stack
-      targetRevision: 56.x.x
+      targetRevision: 56.21.4
       helm:
         valueFiles:
           - $my-repo/k8s/values/prometheus-values.yml
+        parameters:
+        
     - repoURL: https://github.com/daviancold/PortfolioWebsite2.git
       targetRevision: HEAD
       ref: my-repo

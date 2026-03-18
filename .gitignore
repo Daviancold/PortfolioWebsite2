@@ -1,16 +1,17 @@
+## Terraform GitIgnore
 # Local .terraform directories
- **/.terraform/*
+terraform/.terraform/*
 
 #  Ignore variables files
- **/*.tfvars
- **/*.auto.tfvars
+terraform/**/*.tfvars
+terraform/**/*.auto.tfvars
 
 #  Ignore override files
- *.tfoverride
+terraform/*.tfoverride
 
 #  Ignore environment-specific files
- .envrc
+.envrc
 
 #  Ignore CLI configuration files
- .terraformrc
- terraform.rc
+terraform/**/.terraformrc
+terraform/**/terraform.rc
