@@ -1,4 +1,4 @@
-## Terraform GitIgnore
+## Terraform Gitignore
 # Local .terraform directories
 terraform/.terraform/*
 
@@ -15,3 +15,6 @@ terraform/*.tfoverride
 #  Ignore CLI configuration files
 terraform/**/.terraformrc
 terraform/**/terraform.rc
+
+## Kubernetes Gitignore
+k8s/**/secret.yaml
