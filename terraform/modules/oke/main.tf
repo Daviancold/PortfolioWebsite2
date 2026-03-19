@@ -9,12 +9,8 @@ data "oci_core_images" "latest_oke_arm_image" {
   operating_system         = "Oracle Linux"
   operating_system_version = "8"
   shape                    = "VM.Standard.A1.Flex"
-
-  filter {
-    name   = "display_name"
-    values = ["^.*-OKE-.*-arm64.*$"]
-    regex  = true
-  }
+  sort_by                  = "TIMECREATED"
+  sort_order               = "DESC"
 }
 
 # ============================================================
@@ -26,7 +22,7 @@ resource "oci_containerengine_cluster" "k8s_cluster" {
   vcn_id             = var.vcn_id
   kubernetes_version = var.k8s_version
   name               = "oci-k8s-cluster"
-  type               = "BASIC" # Ensures $0 management fee
+  type               = "BASIC_CLUSTER" # Ensures $0 management fee
 
   # API endpoint lives in the public NLB subnet so kubectl can reach it.
   # Workers are private — the endpoint subnet must be separate from the

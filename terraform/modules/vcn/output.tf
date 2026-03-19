@@ -17,6 +17,6 @@ output "minecraft_reserved_ip_id" {
 }
 
 output "minecraft_reserved_ip_address" {
-  description = "The static IP address your Minecraft players will connect to"
+  description = "The static IP address Minecraft players will connect to"
   value       = oci_core_public_ip.minecraft_static_ip.ip_address
 }

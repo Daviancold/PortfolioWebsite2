@@ -27,6 +27,24 @@ resource "oci_core_nat_gateway" "nat" {
   display_name   = "nat-gateway"
 }
 
+resource "oci_core_service_gateway" "sg" {
+  compartment_id = var.compartment_id
+  vcn_id         = oci_core_vcn.main.id
+  display_name   = "service-gateway"
+
+  services {
+    service_id = data.oci_core_services.all_services.services[0].id
+  }
+}
+
+data "oci_core_services" "all_services" {
+  filter {
+    name   = "name"
+    values = ["All .* Services In Oracle Services Network"]
+    regex  = true
+  }
+}
+
 # ============================================================
 # Route Tables
 # ============================================================
@@ -54,6 +72,12 @@ resource "oci_core_route_table" "private_route" {
     destination_type  = "CIDR_BLOCK"
     network_entity_id = oci_core_nat_gateway.nat.id
   }
+
+  route_rules {
+    destination       = data.oci_core_services.all_services.services[0].cidr_block
+    destination_type  = "SERVICE_CIDR_BLOCK"
+    network_entity_id = oci_core_service_gateway.sg.id
+  }
 }
 
 # ============================================================
@@ -68,17 +92,22 @@ resource "oci_core_security_list" "nlb_sec_list" {
   vcn_id         = oci_core_vcn.main.id
   display_name   = "nlb-security-list"
 
-  egress_security_rules {
-    destination = cidrsubnet(var.vcn_cidr, 8, 1) # worker subnet 10.0.1.0/24
-    protocol    = "6"                             # TCP
-    description = "NLB to Minecraft Nodeport Range"
 
-    tcp_options {
-      min = 31234
-      max = 31234
-    }
+  # --- EGRESS RULES ---
+  egress_security_rules {
+    destination = cidrsubnet(var.vcn_cidr, 8, 1)
+    protocol    = "all"
+    description = "Allow Kubernetes API endpoint to communicate with worker nodes and pods (sharing same subnet), and enable path discovery to workers"
   }
 
+  egress_security_rules {
+    destination      = data.oci_core_services.all_services.services[0].cidr_block
+    destination_type = "SERVICE_CIDR_BLOCK"
+    protocol         = "6"
+    description      = "Allow Kubernetes API endpoint to communicate with OKE."
+  }
+
+  # --- INGRESS RULES ---
   ingress_security_rules {
     protocol    = "6" # TCP
     source      = "0.0.0.0/0"
@@ -89,6 +118,46 @@ resource "oci_core_security_list" "nlb_sec_list" {
       max = 25565
     }
   }
+
+  ingress_security_rules {
+    protocol = "6"
+    source   = cidrsubnet(var.vcn_cidr, 8, 1)  # worker subnet
+    description = "Worker and pods to Kubernetes API endpoint"
+    tcp_options { 
+      min = 6443
+      max = 6443 
+    }
+  }
+
+  ingress_security_rules {
+    protocol = "6"
+    source   = cidrsubnet(var.vcn_cidr, 8, 1)
+    description = "Worker and pods to Kubernetes API endpoint"
+    tcp_options { 
+      min = 12250
+      max = 12250 
+    }
+  }
+
+  ingress_security_rules {
+    protocol = "1"  # ICMP
+    source   = cidrsubnet(var.vcn_cidr, 8, 1)
+    description = "Path discovery from workers"
+    icmp_options { 
+      type = 3
+      code = 4 
+    }
+  }
+
+  ingress_security_rules {
+    protocol = "6"  # TCP
+    source   = "0.0.0.0/0"
+    description = "External Access to Kubernetes API endpoint"
+    tcp_options { 
+      min = 6443
+      max = 6443
+    }
+  }
 }
 
 # --- Worker subnet security list ---
@@ -97,14 +166,14 @@ resource "oci_core_security_list" "worker_sec_list" {
   vcn_id         = oci_core_vcn.main.id
   display_name   = "worker-security-list"
 
-  # --- OUTBOUND ---
+  # --- EGRESS RULES ---
   egress_security_rules {
     destination = "0.0.0.0/0"
     protocol    = "all"
     description = "Allow nodes to pull images and connect to Cloudflare"
   }
 
-  # --- INGRESS: Allow forwarded traffic from NLB ---
+  # --- INGRESS RULES ---
   ingress_security_rules {
     protocol    = "6"
     source      = "0.0.0.0/0"
@@ -115,11 +184,10 @@ resource "oci_core_security_list" "worker_sec_list" {
     }
   }
 
-  # --- INGRESS: OKE control plane → Kubelet ---
   ingress_security_rules {
     protocol    = "6" # TCP
-    source      = var.vcn_cidr
-    description = "Allow OKE control plane to manage Kubelet"
+    source      = cidrsubnet(var.vcn_cidr, 8, 0)
+    description = "Allow Kubernetes API endpoint to communicate with worker nodes."
 
     tcp_options {
       min = 10250
@@ -127,39 +195,20 @@ resource "oci_core_security_list" "worker_sec_list" {
     }
   }
 
-  # Path MTU Discovery (Essential for VCN-Native CNI)
   ingress_security_rules {
     protocol    = "1" # ICMP
-    source      = var.vcn_cidr
-    description = "Path MTU Discovery - Prevents packet fragmentation hangs"
+    source      = cidrsubnet(var.vcn_cidr, 8, 0)
+    description = "Path Discovery"
     icmp_options {
       type = 3
       code = 4
     }
   }
 
-  # Control Plane Communication (TCP 443)
-  # Some OKE services and CNI plugins communicate over 443 internally
   ingress_security_rules {
-    protocol    = "6"
-    source      = var.vcn_cidr
-    description = "Allow OKE services to reach nodes over HTTPS"
-    tcp_options {
-      min = 443
-      max = 443
-    }
-  }
-
-  # Health Checks (Port 10256)
-  # OCI Load Balancers use this port to check if the Kube-Proxy is healthy
-  ingress_security_rules {
-    protocol    = "6"
+    protocol    = "all"
     source      = cidrsubnet(var.vcn_cidr, 8, 0) # NLB Subnet
-    description = "Liveness probe for Kube-Proxy"
-    tcp_options {
-      min = 10256
-      max = 10256
-    }
+    description = "Load balancer to worker nodes node ports"
   }
 
   # --- INGRESS: Internal pod-to-pod and VCN traffic ---
@@ -168,13 +217,9 @@ resource "oci_core_security_list" "worker_sec_list" {
   ingress_security_rules {
     protocol    = "all"
     source      = var.vcn_cidr
-    description = "Allow internal pod-to-pod and VCN traffic"
+    description = "Allow internal pod-to-pod and VCN traffic (Includes NLB)"
   }
 
-  # NOTE: :22 (SSH) and :6443 (kubectl) rules have been intentionally removed.
-  # Nodes are private and have no public IPs — direct inbound from your
-  # personal IP cannot reach them.
-  #
   # SSH:    Use OCI Bastion Service instead.
   # kubectl: Target the OKE cluster public endpoint, not the node IPs.
   #          The endpoint is already secured by Oracle with its own access controls.

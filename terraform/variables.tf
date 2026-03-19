@@ -19,11 +19,6 @@ variable "ad_name" {
   type        = string
 }
 
-variable "personal_ip" {
-  description = "Home IP Address"
-  type        = string
-}
-
 variable "ssh_public_key" {
   description = "SSH Public Key (to be passed in using tfvars)"
   type        = string

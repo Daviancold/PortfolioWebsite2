@@ -2,7 +2,6 @@ module "vcn" {
   source         = "./modules/vcn"
   compartment_id = var.compartment_id
   vcn_cidr       = var.vcn_cidr
-  personal_ip    = var.personal_ip
 }
 
 module "oke" {
