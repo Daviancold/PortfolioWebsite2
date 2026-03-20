@@ -23,6 +23,16 @@ kubectl apply -n argocd -f \
 kubectl wait --for=condition=available deployment/argocd-server \
   -n argocd --timeout=180s
 
+# Set insecure mode for ArgoCD
+kubectl patch configmap argocd-cmd-params-cm \
+  -n argocd \
+  --type merge \
+  -p '{"data": {"server.insecure": "true"}}'
+
+# Apply fix for ApplicationSet CRD installation failure due to annotation size limit
+kubectl apply -n argocd --server-side --force-conflicts -f \
+  https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
 # Apply secrets before app deployment
 kubectl get secret cloudflare-tunnel-token &>/dev/null || \
   kubectl create -f "$K8S_DIR/apps/cloudflared/secret.yaml"

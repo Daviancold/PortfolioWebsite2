@@ -1,0 +1,10 @@
+# k8s/argocd/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cmd-params-cm
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: MergeWith=true
+data:
+  server.insecure: "true"
