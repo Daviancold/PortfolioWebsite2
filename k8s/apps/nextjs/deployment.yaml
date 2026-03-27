@@ -19,4 +19,7 @@ spec:
       - name: nextjs-website-container
         image: daviancold/my-portfolio-website-arm:latest
         ports:
-        - containerPort: 3000
+        - name: http
+          containerPort: 3000
+        - name: metrics
+          containerPort: 9090
