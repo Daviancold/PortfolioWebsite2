@@ -28,8 +28,6 @@ COPY --from=builder /app/.next/static ./.next/static
 
 EXPOSE 3000
 EXPOSE 9090
-ENV PORT=3000
-ENV PORT=9090
 
 # Next.js standalone entry point
 CMD ["node", "server.js"]
