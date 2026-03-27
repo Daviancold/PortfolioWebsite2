@@ -39,7 +39,7 @@ kubectl get secret cloudflare-tunnel-token &>/dev/null || \
 
 kubectl get secret dockerhub-credentials -n argocd &>/dev/null || \
   kubectl create secret docker-registry dockerhub-credentials \
-  --docker-server=https://index.docker.io/v1/ \
+  --docker-server=https://registry-1.docker.io \
   --docker-username=daviancold \
   --docker-password=<your-dockerhub-pat> \
   -n argocd
