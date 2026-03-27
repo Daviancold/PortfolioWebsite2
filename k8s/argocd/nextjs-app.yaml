@@ -6,6 +6,11 @@ metadata:
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "2"
+    argocd-image-updater.argoproj.io/image-list: image=daviancold/my-portfolio-website-arm:latest
+    argocd-image-updater.argoproj.io/image.update-strategy: digest
+    argocd-image-updater.argoproj.io/image.platform: linux/arm64
+    argocd-image-updater.argoproj.io/image.pull-secret: pullsecret:argocd/dockerhub-credentials
+    argocd-image-updater.argoproj.io/write-back-method: argocd
 spec:
   project: default
   source:
