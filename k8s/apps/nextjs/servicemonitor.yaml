@@ -13,6 +13,6 @@ spec:
     matchLabels:
       app: nextjs-website  # must match your Service labels
   endpoints:
-    - port: http
+    - port: metrics
       path: /metrics
       interval: 30s
