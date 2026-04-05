@@ -55,11 +55,11 @@ resource "oci_containerengine_cluster" "k8s_cluster" {
 # 2 nodes × 2 OCPU × 12 GB = 4 OCPU / 24 GB total (within free tier limits).
 # 2 nodes × 50 GB boot = 100 GB total, leaving 100 GB for PVCs.
 # 1. THE WORKER POOL (Dedicated to Heavy Workloads / Minecraft)
-resource "oci_containerengine_node_pool" "worker_pool" {
+resource "oci_containerengine_node_pool" "apps_pool" {
   cluster_id         = oci_containerengine_cluster.k8s_cluster.id
   compartment_id     = var.compartment_id
   kubernetes_version = var.k8s_version
-  name               = "worker-node-pool"
+  name               = "apps-node-pool"
   node_shape         = "VM.Standard.A1.Flex"
 
   node_shape_config {
@@ -92,7 +92,7 @@ resource "oci_containerengine_node_pool" "worker_pool" {
 
   # SRE Labeling for Node Affinity
   initial_node_labels {
-    key   = "node-role.kubernetes.io/worker"
+    key   = "node-role.kubernetes.io/apps"
     value = "true"
   }
 
@@ -101,7 +101,7 @@ resource "oci_containerengine_node_pool" "worker_pool" {
   lifecycle {
     ignore_changes = [
       node_source_details[0].image_id, 
-      kubernetes_version
+      kubernetes_version,
     ]
   }
 
@@ -150,7 +150,7 @@ resource "oci_containerengine_node_pool" "infra_pool" {
   lifecycle {
     ignore_changes = [
       node_source_details[0].image_id, 
-      kubernetes_version
+      kubernetes_version,
     ]
   }
 
