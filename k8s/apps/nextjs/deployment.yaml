@@ -15,6 +15,13 @@ spec:
       labels: 
         app: nextjs-website
     spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: "kubernetes.io/hostname"
+          whenUnsatisfiable: DoNotSchedule # Force 1 on each node
+          labelSelector:
+            matchLabels:
+              app: nextjs-website
       containers:
       - name: nextjs-website-container
         image: daviancold/my-portfolio-website-arm:latest
@@ -23,3 +30,10 @@ spec:
           containerPort: 3000
         - name: metrics
           containerPort: 9090
+        resources:
+            requests:
+              cpu: "200m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"    # Burst to 1 full oCPU for fast page loads
+              memory: "1Gi"

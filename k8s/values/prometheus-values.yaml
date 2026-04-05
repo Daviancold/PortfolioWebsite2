@@ -2,6 +2,8 @@
 
 ## Grafana Configuration
 grafana:
+  nodeSelector:
+      node-role.kubernetes.io/infra: "true"
   enabled: true
   sidecar:
     dashboards:
@@ -25,15 +27,17 @@ grafana:
 ## Prometheus Configuration
 prometheus:
   prometheusSpec:
-    # ## 1. SRE "Guardrails" - Resource Limits
-    # # Prevents Prometheus from consuming all 24GB of your RAM
-    # resources:
-    #   requests:
-    #     cpu: 250m
-    #     memory: 1Gi
-    #   limits:
-    #     cpu: 500m
-    #     memory: 2Gi
+    ## 1. SRE "Guardrails" - Resource Limits
+    # Prevents Prometheus from consuming all 24GB of your RAM
+    nodeSelector:
+      node-role.kubernetes.io/infra: "true"
+    resources:
+      requests:
+        cpu: 250m
+        memory: 1Gi
+      limits:
+        cpu: 500m
+        memory: 2Gi
 
     ## 2. Persistence - OCI Block Storage
     # Ensures your metrics survive a pod restart or node upgrade
@@ -77,6 +81,8 @@ kubeStateMetrics:
 # Alertmanager - Single instance to save resources on OCI
 alertmanager:
   alertmanagerSpec:
+    nodeSelector:
+        node-role.kubernetes.io/infra: "true"
     replicas: 1
     storage:
       volumeClaimTemplate:
