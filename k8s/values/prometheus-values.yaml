@@ -41,14 +41,16 @@ prometheus:
 
     ## 2. Persistence - OCI Block Storage
     # Ensures your metrics survive a pod restart or node upgrade
-    storageSpec:
-      volumeClaimTemplate:
-        spec:
-          # storageClassName: oci-bv # The standard OKE Block Volume class
-          accessModes: ["ReadWriteOnce"]
-          resources:
-            requests:
-              storage: 20Gi
+    # storageSpec:
+    #   volumeClaimTemplate:
+    #     spec:
+    #       storageClassName: oci-bv # The standard OKE Block Volume class
+    #       accessModes: ["ReadWriteOnce"]
+    #       resources:
+    #         requests:
+    #           storage: 20Gi
+    storageSpec: {}
+
 
     ## 3. Discovery - Cross-Namespace Scraping
     # Setting these to 'false' tells Prometheus to look for ServiceMonitors 
@@ -60,10 +62,9 @@ prometheus:
     serviceMonitorSelector: {}
     serviceMonitorNamespaceSelector: {}
 
-    ## 4. Retention
-    # retention: 10d
-    # retentionSize: "15GB"
-    retention: 2d
+    # 4. Retention
+    retention: 30d
+    retentionSize: "15GB"
 
 ## Component Exporters
 nodeExporter:
@@ -84,10 +85,16 @@ alertmanager:
     nodeSelector:
         node-role.kubernetes.io/infra: "true"
     replicas: 1
-    storage:
-      volumeClaimTemplate:
-        spec:
-          # storageClassName: oci-bv
-          resources:
-            requests:
-              storage: 2Gi
+    # storage:
+    #   volumeClaimTemplate:
+    #     spec:
+    #       storageClassName: oci-bv
+    #       resources:
+    #         requests:
+    #           storage: 2Gi
+    storage: {}
+    resources:
+      limits:
+        ephemeral-storage: "1Gi"
+    retention: 
+      - 720h
