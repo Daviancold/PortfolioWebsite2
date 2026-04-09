@@ -96,5 +96,4 @@ alertmanager:
     resources:
       limits:
         ephemeral-storage: "1Gi"
-    retention: 
-      - 720h
+    retention: 720h
