@@ -1,0 +1,22 @@
+# k8s/argocd/namespaces-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minecraft
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/daviancold/PortfolioWebsite2.git'
+    path: k8s/apps/minecraft
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: apps
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
