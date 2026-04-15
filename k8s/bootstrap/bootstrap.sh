@@ -28,6 +28,7 @@ kubectl patch configmap argocd-cmd-params-cm \
   -n argocd \
   --type merge \
   -p '{"data": {"server.insecure": "true"}}'
+kubectl rollout restart deployment argocd-server -n argocd
 
 ### Apply fix for ApplicationSet CRD installation failure due to annotation size limit ###
 kubectl apply -n argocd --server-side --force-conflicts -f \
@@ -36,6 +37,9 @@ kubectl apply -n argocd --server-side --force-conflicts -f \
 ### Apply secrets before app deployment (Update required secrets where needed) ###
 kubectl get secret cloudflare-tunnel-token &>/dev/null || \
   kubectl create -f "$K8S_DIR/apps/cloudflared/secret.yaml"
+
+### Apply node label if unable to provision together during node creation using terraform ###
+kubectl label node <node-name> node-role.kubernetes.io/infra=true
 
 kubectl get secret dockerhub-credentials -n argocd &>/dev/null || \
   kubectl create secret docker-registry dockerhub-credentials \

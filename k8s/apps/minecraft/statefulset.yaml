@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minecraft-server
+  namespace: apps
+spec:
+  serviceName: "minecraft-server"
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: minecraft-server
+  template:
+    metadata:
+      labels:
+        app: minecraft-server
+    spec:
+      nodeSelector:
+          node-role.kubernetes.io/apps: "true"
+      terminationGracePeriodSeconds: 60 # Give the world time to save!
+      containers:
+        - name: minecraft-server
+          image: itzg/minecraft-server:latest
+          env:
+            - name: EULA
+              value: "TRUE"
+            - name: TYPE
+              value: "FABRIC"
+            - name: VERSION
+              value: "1.21.11" 
+            # This points to where your .jar mod files will live
+            - name: MODS_DIR
+              value: "/data/mods"
+            - name: MEMORY
+              value: "6G" 
+          ports:
+            - name: minecraft
+              containerPort: 25565
+            - name: metrics
+              containerPort: 19565
+          resources:
+            requests:
+              cpu: "2"
+              memory: "4Gi"
+            limits:
+              cpu: "2" # Allow "bursting" for chunk generation
+              memory: "6Gi" 
+          volumeMounts:
+          - name: minecraft-storage
+            mountPath: /data
+            subPath: fabric
+  
+  # This section replaces the need for separate PVC files
+  volumeClaimTemplates:
+  - metadata:
+      name: minecraft-storage
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "oci-bv"
+      resources:
+        requests:
+          storage: 50Gi

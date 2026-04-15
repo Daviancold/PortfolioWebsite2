@@ -15,3 +15,19 @@ module "oke" {
   ssh_public_key      = var.ssh_public_key
   depends_on          = [module.vcn]
 }
+
+resource "local_file" "minecraft_infra_patch" {
+  # This path must point to your flat minecraft folder relative to where you run TF
+  filename = "${path.module}/../k8s/apps/minecraft/patch.yaml"
+  
+  content  = <<-EOT
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: minecraft-server
+      annotations:
+        oci.oraclecloud.com/load-balancer-type: "nlb"
+        oci-network-load-balancer.oraclecloud.com/subnet: "${module.vcn.nlb_subnet_id}"
+        oci.oraclecloud.com/reserved-ips: "${module.vcn.minecraft_reserved_ip_address}"
+  EOT
+}
