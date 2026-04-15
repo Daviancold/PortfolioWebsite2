@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: minecraft-server
+  namespace: apps
   annotations:
     oci.oraclecloud.com/load-balancer-type: "nlb"
     oci-network-load-balancer.oraclecloud.com/subnet: "ocid1.subnet.oc1.ap-singapore-1.aaaaaaaa76gaj6pjjokstxsl2nqe2jzgplsj23vvsugtkc2jcbecb2uv2z5q"

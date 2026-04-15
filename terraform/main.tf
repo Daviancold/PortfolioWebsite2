@@ -25,6 +25,7 @@ resource "local_file" "minecraft_infra_patch" {
     kind: Service
     metadata:
       name: minecraft-server
+      namespace: apps
       annotations:
         oci.oraclecloud.com/load-balancer-type: "nlb"
         oci-network-load-balancer.oraclecloud.com/subnet: "${module.vcn.nlb_subnet_id}"
