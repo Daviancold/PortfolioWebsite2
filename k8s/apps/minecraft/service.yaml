@@ -5,6 +5,8 @@ metadata:
   namespace: apps
   labels:
     app: minecraft-server
+  annotations:
+    oci.oraclecloud.com/load-balancer-type: "nlb"
 spec:
   type: LoadBalancer
   ports:
