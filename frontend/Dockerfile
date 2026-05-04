@@ -10,24 +10,25 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-# Next.js collects anonymous telemetry by default. Disable it here.
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
-# Stage 3: Runner (The final tiny image)
+# Stage 3: Runner
 FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Copy standalone output and static assets directly
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
+# Copy your custom server and install tsx to run it
+COPY --from=builder /app/server.ts ./server.ts
+RUN npm install -g tsx
+
 EXPOSE 3000
 EXPOSE 9090
 
-# Next.js standalone entry point
-CMD ["node", "server.js"]
+CMD ["tsx", "server.ts"]
