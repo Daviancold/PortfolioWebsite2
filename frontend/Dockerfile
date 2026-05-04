@@ -23,9 +23,12 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
-
-# Copy your custom server and install tsx to run it
 COPY --from=builder /app/server.ts ./server.ts
+COPY --from=builder /app/src/lib/metrics.ts ./src/lib/metrics.ts
+
+# prom-client and its dependency
+COPY --from=builder /app/node_modules ./node_modules
+
 RUN npm install -g tsx
 
 EXPOSE 3000
