@@ -112,7 +112,7 @@ export default async function Project({
                     ,{" "}
                   </Text>
                 )}
-                <SmartLink href={member.linkedIn}>{member.name}</SmartLink>
+                <SmartLink href={member.link}>{member.name}</SmartLink>
               </span>
             ))}
           </Text>
