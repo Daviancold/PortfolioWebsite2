@@ -48,6 +48,20 @@ spec:
           - name: minecraft-storage
             mountPath: /data
             subPath: fabric
+          readinessProbe:
+            tcpSocket:
+              port: mc-server-port
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            tcpSocket:
+              port: mc-server-port
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
   
   # This section replaces the need for separate PVC files
   volumeClaimTemplates:
