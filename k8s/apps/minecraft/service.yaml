@@ -12,8 +12,8 @@ spec:
   ports:
     - name: minecraft
       port: 25565
-      targetPort: minecraft  # references the named port
-      nodePort: 31234
+      targetPort: mc-server-port  # references the named port
+      # nodePort: 31234
       protocol: TCP
   selector:
     app: minecraft-server

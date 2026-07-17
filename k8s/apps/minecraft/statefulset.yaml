@@ -33,9 +33,9 @@ spec:
             - name: MEMORY
               value: "6G" 
           ports:
-            - name: minecraft
+            - name: mc-server-port
               containerPort: 25565
-            - name: metrics
+            - name: mc-metrics-port
               containerPort: 19565
           resources:
             requests:
