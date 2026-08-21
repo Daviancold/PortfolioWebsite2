@@ -131,8 +131,21 @@ const about: About = {
     title: "Work Experience",
     experiences: [
       {
+        company: "Citibank Singapore",
+        timeframe: "Jul 2026 - Present",
+        role: "Technology Analyst",
+        achievements: [
+          <>
+            First rotation at Markets FX
+          </>,
+        ],
+        images: [
+          // optional: leave the array empty if you don't want to display images
+        ],
+      },
+      {
         company: "Aquariux Fintech",
-        timeframe: "Jan 2026 - Present",
+        timeframe: "Jan 2026 - Jul 2026",
         role: "Backend Software Engineer Intern",
         achievements: [
           <>
@@ -145,9 +158,18 @@ const about: About = {
             existing application logs into a new schema to support new business
             logic with scheduled cron job updates
           </>,
+          <>
+            Added automatic email notifications to makers and checkers in relevant
+            OTC transactions such as creation, editing and approval.
+          </>
         ],
         images: [
-          // optional: leave the array empty if you don't want to display images
+          {
+            src: "/images/about/about-03.jpg",
+            alt: "AQX Photo",
+            width: 16,
+            height: 9,
+          },
         ],
       },
       {
